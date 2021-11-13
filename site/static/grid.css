@@ -1,0 +1,22 @@
+.themed-grid-col {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  background-color: rgba(61, 124, 105, 0.15);
+  border: 1px solid rgba(61, 124, 64, 0.2);
+}
+
+.themed-container {
+  padding: .75rem;
+  margin-bottom: 1.5rem;
+  background-color: rgba(0, 123, 255, .15);
+  border: 1px solid rgba(0, 123, 255, .2);
+}
+
+table {
+  border: 1px solid black;
+  width: 100%;
+}
+table td {
+  padding: 18px;
+  border: 1px solid gray;
+}
