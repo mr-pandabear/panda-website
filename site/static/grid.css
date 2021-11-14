@@ -13,10 +13,13 @@
 }
 
 table {
-  border: 1px solid black;
   width: 100%;
 }
 table td {
-  padding: 18px;
-  border: 1px solid gray;
+  padding: 14px;
+  border: 1px solid #ccc;
+}
+
+.header {
+  background-color: rgba(61, 124, 105, 0.15);
 }

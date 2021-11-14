@@ -1,13 +1,14 @@
 import os
-
+import requests
 from flask import Flask, send_from_directory
 from flask import render_template
+from flask import request
 import json
 
 app = Flask(__name__)
 
 def get_hosts():
-    return ['1','2','3','4']
+    return ['http://localhost:3000','http://localhost:8080']
 
 @app.route('/static/<path:path>')
 def raw_file():
@@ -19,22 +20,23 @@ def hosts():
 
 @app.route('/')
 def index():
-    info = {}
-    info['num_coins'] = "{:,}".format(200000)
-    info['num_wallets'] = "{:,}".format(200000)
-    info['source_url']= "{:,}".format(200000)
-    info['num_nodes']= "{:,}".format(200000)
-    info['pending_transactions']= "{:,}".format(200000)
-    info['transactions_per_second']= "{:,}".format(200000)
-    info['transaction_volume']= "{:,}".format(200000)
-    info['avg_transaction_size']= "{:,}".format(200000)
-    info['avg_transaction_fee']= "{:,}".format(200000)
-    info['difficulty']= "{:,}".format(200000)
-    info['current_block']= "{:,}".format(200000)
-    info['last_block_time']= "{:,}".format(200000)
-    info['transactions'] = ['c','d','e']
-    info['source_url'] = 'http://ec2-35-86-117-146.us-west-2.compute.amazonaws.com:3000'
-    info['hosts'] = get_hosts()
+    host = request.args.get('host')
+    if host == None:
+        host = get_hosts()[0]
+    resp = requests.get(url=host + '/stats')
+    info = resp.json()
+    info['curr_host'] = host
+    info['hosts'] = []
+    info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
+    allhosts = get_hosts()
+    for currhost in allhosts:
+        if currhost != host:
+            resp = requests.get(url=currhost + '/stats')
+            currdata = resp.json()
+            currdata['url'] = currhost
+            info['hosts'].append(currdata)
+
+    info['num_nodes'] = len(info['hosts'])
     return render_template('index.html', info=info, hosts=info['hosts'], transactions=info['transactions'])
 
 app.run(host='0.0.0.0', port=80)
