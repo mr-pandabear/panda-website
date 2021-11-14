@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.88.1">
+    <link href="static/grid.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <title>PandaCoin Network</title>
+
+    <style>
+      .intro {
+        background-image: url("static/bg3.jpeg");
+        background-size: 100%;
+        background-position: 0 -100px;
+        background-repeat: repeat;
+        color: white;
+        text-shadow: 2px 2px #000000;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="py-4">
+<main>
+  <div class="container">
+    <h1><a href="/"><img src="static/logo.png" width="100"/></a>PandaCoin Network Status</h1>
+    <h2 class="mt-4">Details for Block {{info['id']}}</h2>
+    <a href="?id={{info['id']-1}}&host={{info['url']}}"><button id="previous" class="btn btn-primary" type="button">◀ Previous</button></a><a href="?id={{info['id']+1}}&host={{info['url']}}"><button id="next" class="btn btn-primary" type="button">Next ▶</button></a>
+    <form class="card p-2 searchbox">
+      Load stats from node:
+      <div class="input-group">
+        <input type="hidden" name="id" value="{{info['id']}}"/>
+        <input type="text" class="form-control" name="host" placeholder="Enter node host address" value="{{ info['url']}}">
+        <button type="submit" class="btn btn-secondary">GO</button>
+      </div>
+    </form>
+    <br/>
+    <form class="card p-2 searchbox">
+      Load stats for block:
+      <div class="input-group">
+        <input type="hidden" name="host" value="{{info['url']}}"/>
+        <input type="text" class="form-control" name="id" placeholder="Enter Block ID" value="{{ info['id']}}">
+        <button type="submit" class="btn btn-secondary">GO</button>
+      </div>
+    </form>
+    <br/>
+    <div class="row mb-3">
+      <div class="col-4 themed-grid-col">Difficulty<div><h1>{{info['difficulty']}} bits</h1></div></div>
+      <div class="col-4 themed-grid-col">Transaction Count<div><h1>{{info['num_transactions']}}</h1></div></div>
+      <div class="col-4 themed-grid-col">Mint Timestamp<div>{{info['timestamp']}}</div></div>
+    </div>
+    <h2 class="mt-4">Transactions</h2>
+    <table>
+      <tr class='header'><td>From</td><td>To</td><td>Amount</td><td>Fee</td></tr>
+      {% for message in info['transactions'] %}
+      <tr><td>{{message['from']}}</td><td>{{message['to']}}</td><td>{{message['amount']}}</td><td>{{message['fee']}}</td></tr>
+      {% endfor %}
+    </table>
+</main>
+  </body>
+</html>

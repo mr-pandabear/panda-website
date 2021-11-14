@@ -38,7 +38,7 @@
     
 <main>
   <div class="container">
-    <h1><img src="static/logo.png" width="100"/>PandaCoin Network</h1>
+    <h1><img src="static/logo.png" width="100"/>PandaCoin Network Status</h1>
     <div class="p-5 mb-4 bg-light rounded-3 intro">
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">{{ info['num_coins'] }} Bamboo</h1>
@@ -47,15 +47,16 @@
       </div>
     </div>
     <h2 class="mt-4">System Health</h2>
-    <form class="card p-2">
+    <form class="card p-2 searchbox">
       Load stats from node:
       <div class="input-group">
         <input type="text" class="form-control" name="host" placeholder="Enter node host address" value="{{ info['curr_host']}}">
         <button type="submit" class="btn btn-secondary">GO</button>
       </div>
     </form>
+    <br/>
     <div class="row mb-3">
-      <div class="col-4 themed-grid-col">Network Nodes<div><h1>{{info['num_nodes']}}</h1></div></div>
+      <div class="col-4 themed-grid-col">Current Block<div><a href="/block?id={{info['current_block']-1}}&host={{info['curr_host']}}"><h1>{{info['current_block']-1}}</h1></a></div></div>
       <div class="col-4 themed-grid-col">Pending Transactions<div><h1>{{info['pending_transactions']}}</h1></div></div>
       <div class="col-4 themed-grid-col">Transactions per second<div><h1>{{info['transactions_per_second']}}</h1></div></div>
     </div>
@@ -66,10 +67,10 @@
     </div>
     <div class="row mb-3">
       <div class="col-4 themed-grid-col">Difficulty<div><h1>{{info['difficulty']}} bits</h1></div></div>
-      <div class="col-4 themed-grid-col">Current Block<div><h1>{{info['current_block']}}</h1></div></div>
+      <div class="col-4 themed-grid-col">Node Count<div><h1>{{info['num_nodes']}}</h1></div></div>
       <div class="col-4 themed-grid-col">Last Block Mint Time<div><h1>{{info['last_block_time']}} sec</h1></div></div>
     </div>
-    <h2 class="mt-4">Master Node List</h2>
+    <h2 class="mt-4">Other Nodes</h2>
     <table>
       <tr class='header'><td>Host</td><td>Blocks</td><td>Queue Size</td></tr>
       {% for message in hosts %}

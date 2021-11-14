@@ -5,6 +5,11 @@
   border: 1px solid rgba(61, 124, 64, 0.2);
 }
 
+.input-group {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .themed-container {
   padding: .75rem;
   margin-bottom: 1.5rem;
