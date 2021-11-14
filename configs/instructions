@@ -1,0 +1,41 @@
+
+===
+Install packages:
+sudo apt-get install python-pip3 
+sudo pip3 install uwsgi
+sudo pip3 install flask
+
+Create this file:
+sudo nano /etc/systemd/system/website.service
+With these contents:
+====
+[Unit]
+Description=website server
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/panda-website/site
+ExecStart=/bin/bash start.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+=====
+
+Then: sudo systemctl daemon-reload
+Then: sudo systemctl start website
+
+Then set permissions:
+sudo chmod 666 /tmp/website.sock
+
+======
+Add this to /etc/nginx/sites-enabled/default
+
+location / { try_files $uri @website; }
+location @website {
+    include uwsgi_params;
+    uwsgi_pass unix:/tmp/website.sock;
+}
+
+sudo systemctl restart nginx
