@@ -8,16 +8,21 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-def get_hosts():
-    return ['http://localhost:3000']
+HOST_LIST = []
 
-@app.route('/static/<path:path>')
-def raw_file():
-    return send_from_directory('static', path)
+def get_hosts():
+    global HOST_LIST
+    return HOST_LIST
 
 @app.route('/hosts')
 def hosts():
     return json.dumps(get_hosts())
+
+@app.route('/add_host')
+def add_host():
+    global HOST_LIST
+    host = request.args.get('host')
+    HOST_LIST.append(host)
 
 @app.route('/block')
 def block():
@@ -53,12 +58,20 @@ def index():
                 resp = requests.get(url=currhost + '/stats')
                 currdata = resp.json()
                 currdata['url'] = currhost
+                currdata['url'] = 'RUNNING'
                 info['hosts'].append(currdata)
             except:
+                currdata['url'] = currhost
+                currdata['status'] = 'NO RESPONSE'
                 continue
 
     info['num_nodes'] = len(info['hosts'])
     return render_template('index.html', info=info, hosts=info['hosts'], transactions=info['transactions'])
+
+
+@app.route('/static/<path:path>')
+def raw_file():
+    return send_from_directory('static', path)
 
 app.run(host='0.0.0.0', port=80)
 

@@ -4,6 +4,7 @@ Install packages:
 sudo apt-get install python-pip3 
 sudo pip3 install uwsgi
 sudo pip3 install flask
+sudo apt-get install nginx
 
 Create this file:
 sudo nano /etc/systemd/system/website.service
