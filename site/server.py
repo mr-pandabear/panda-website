@@ -57,7 +57,7 @@ def index():
                 resp = requests.get(url=currhost + '/stats')
                 currdata = resp.json()
                 currdata['url'] = currhost
-                currdata['status'] = 'RUNNING
+                currdata['status'] = 'RUNNING'
                 if host == None:
                     host = currhost
                     info = resp.json()
