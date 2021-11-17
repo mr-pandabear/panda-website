@@ -50,8 +50,6 @@ def block():
 @app.route('/')
 def index():
     host = request.args.get('host')
-    resp = requests.get(url=host + '/stats')
-
     allhosts = get_hosts()
     for currhost in allhosts:
         if currhost != host:
@@ -83,5 +81,5 @@ def raw_file():
     return send_from_directory('static', path)
 
 if __name__=='__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=80)
 
