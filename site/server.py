@@ -50,16 +50,8 @@ def block():
 @app.route('/')
 def index():
     host = request.args.get('host')
-    if host == None:
-        host = get_hosts()[0]
     resp = requests.get(url=host + '/stats')
-    info = resp.json()
-    print(info)
-    info['curr_host'] = host
-    info['hosts'] = []
-    info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
-    info['transaction_volume'] /= 10000
-    info['avg_transaction_size'] /= 10000
+
     allhosts = get_hosts()
     for currhost in allhosts:
         if currhost != host:
@@ -69,6 +61,14 @@ def index():
                 currdata['url'] = currhost
                 currdata['status'] = 'RUNNING'
                 info['hosts'].append(currdata)
+                if host == None:
+                    host = currhost
+                    info = resp.json()
+                    info['curr_host'] = host
+                    info['hosts'] = []
+                    info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
+                    info['transaction_volume'] /= 10000
+                    info['avg_transaction_size'] /= 10000
             except:
                 currdata['url'] = currhost
                 currdata['status'] = 'NO RESPONSE'
