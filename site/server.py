@@ -5,6 +5,7 @@ from flask import render_template
 from flask import request
 import json
 from datetime import datetime
+import random
 
 app = Flask(__name__)
 
@@ -21,7 +22,7 @@ def get_hosts():
 
 @app.route('/hosts')
 def hosts():
-    return json.dumps(get_hosts())
+    return json.dumps(random.shuffle(get_hosts()))
 
 @app.route('/clear_hosts')
 def clear_hosts():
