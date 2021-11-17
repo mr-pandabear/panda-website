@@ -8,7 +8,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-HOST_LIST = ['http://ec2-34-216-18-6.us-west-2.compute.amazonaws.com:3000/block_count']
+HOST_LIST = ['http://ec2-34-216-18-6.us-west-2.compute.amazonaws.com:3000']
 
 def get_hosts():
     global HOST_LIST
