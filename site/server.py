@@ -66,11 +66,12 @@ def index():
             currdata['status'] = 'RUNNING'
             if host == currhost or host==None:
                 host = currhost
-                info = resp.json()
+                info = {**resp.json(), **info}
                 info['curr_host'] = host
                 info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
                 info['transaction_volume'] /= 10000
                 info['avg_transaction_size'] /= 10000
+                info['hosts'].append({'url':currhost, 'status':'RUNNING'})
                 found_valid = True
         except:
             currdata = {}
