@@ -54,29 +54,26 @@ def index():
     info = { 'hosts': []}
     found_valid = False
     for currhost in allhosts:
-        if currhost != host:
-            try:
-                resp = requests.get(url=currhost + '/stats')
-                currdata = resp.json()
-                currdata['url'] = currhost
-                currdata['status'] = 'RUNNING'
-                if host == None:
-                    host = currhost
-                    info = resp.json()
-                    info['curr_host'] = host
-                    info['hosts'] = []
-                    info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
-                    info['transaction_volume'] /= 10000
-                    info['avg_transaction_size'] /= 10000
-                    info['hosts']=[]
-                    found_valid = True
-                else:
-                    info['hosts'].append(currdata)
-            except:
-                currdata['url'] = currhost
-                currdata['status'] = 'NO RESPONSE'
+        try:
+            resp = requests.get(url=currhost + '/stats')
+            currdata = resp.json()
+            currdata['url'] = currhost
+            currdata['status'] = 'RUNNING'
+            if host == currhost or host==None:
+                host = currhost
+                info = resp.json()
+                info['curr_host'] = host
+                info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
+                info['transaction_volume'] /= 10000
+                info['avg_transaction_size'] /= 10000
+                found_valid = True
+            else:
                 info['hosts'].append(currdata)
-                continue
+        except:
+            currdata['url'] = currhost
+            currdata['status'] = 'NO RESPONSE'
+            info['hosts'].append(currdata)
+            continue
 
     info['num_nodes'] = len(info['hosts'])
     if (not found_valid):
