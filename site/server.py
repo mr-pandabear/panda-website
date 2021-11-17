@@ -83,7 +83,7 @@ def index():
     info['num_nodes'] = len(info['hosts'])
     if (not found_valid):
         info['transactions'] = []
-    return render_template('index.html', info=info, hosts=info['hosts'], transactions=info['transactions'])
+    return render_template('index.html', info=info, found_valid=found_valid, hosts=info['hosts'], transactions=info['transactions'])
 
 
 @app.route('/static/<path:path>')
