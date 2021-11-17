@@ -19,7 +19,7 @@ def hosts():
     return json.dumps(get_hosts())
 
 @app.route('/clear_hosts')
-def hosts():
+def clear_hosts():
     global HOST_LIST
     HOST_LIST = []
     return json.dumps(get_hosts())
