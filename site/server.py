@@ -51,6 +51,8 @@ def block():
 def index():
     host = request.args.get('host')
     allhosts = get_hosts()
+    info = { 'hosts': []}
+    found_valid = False
     for currhost in allhosts:
         if currhost != host:
             try:
@@ -67,14 +69,18 @@ def index():
                     info['transaction_volume'] /= 10000
                     info['avg_transaction_size'] /= 10000
                     info['hosts']=[]
+                    found_valid = True
                 else:
                     info['hosts'].append(currdata)
             except:
                 currdata['url'] = currhost
                 currdata['status'] = 'NO RESPONSE'
+                info['hosts'].append(currdata)
                 continue
 
     info['num_nodes'] = len(info['hosts'])
+    if (not found_valid):
+        info['transactions'] = []
     return render_template('index.html', info=info, hosts=info['hosts'], transactions=info['transactions'])
 
 

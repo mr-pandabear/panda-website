@@ -55,6 +55,7 @@
       </div>
     </form>
     <br/>
+    {% if found_valid %}
     <div class="row mb-3">
       <div class="col-4 themed-grid-col">Current Block<div><a href="/block?id={{info['current_block']-1}}&host={{info['curr_host']}}"><h1>{{info['current_block']-1}}</h1></a></div></div>
       <div class="col-4 themed-grid-col">Pending Transactions<div><h1>{{info['pending_transactions']}}</h1></div></div>
@@ -70,6 +71,9 @@
       <div class="col-4 themed-grid-col">Node Count<div><h1>{{info['num_nodes']}}</h1></div></div>
       <div class="col-4 themed-grid-col">Last Block Mint Time<div><h1>{{info['last_block_time']}} sec</h1></div></div>
     </div>
+    {% else %}
+    <h1>Fatal error: No live nodes could be reached</h1>
+    {% endif %}
     <h2 class="mt-4">Other Nodes</h2>
     <table>
       <tr class='header'><td>Host</td><td>Blocks</td><td>Queue Size</td><td>State</td></tr>
