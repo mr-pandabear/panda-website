@@ -72,9 +72,13 @@
     </div>
     <h2 class="mt-4">Other Nodes</h2>
     <table>
-      <tr class='header'><td>Host</td><td>Blocks</td><td>Queue Size</td></tr>
+      <tr class='header'><td>Host</td><td>Blocks</td><td>Queue Size</td><td>State</td>/tr>
       {% for message in hosts %}
-      <tr><td><a href="?host={{message['url']}}">{{message['url']}}</a></td><td>{{message['current_block']}}</td><td>{{message['pending_transactions']}}</td></tr>
+      {% if message['status'] == 'RUNNING' %}
+      <tr><td><a href="?host={{message['url']}}">{{message['url']}}</a></td><td>{{message['current_block']}}</td><td>{{message['pending_transactions']}}</td><td>{{message['status']}}</td></tr>
+      {% else %}
+      <tr><td><a href="?host={{message['url']}}">{{message['url']}}</a></td><td>?</td><td>?</td><td>{{message['status']}}</td></tr>
+      {% endif %}
       {% endfor %}
     </table>
     <h2 class="mt-4">Transaction Queue</h2>

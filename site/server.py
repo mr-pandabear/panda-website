@@ -23,6 +23,7 @@ def add_host():
     global HOST_LIST
     host = request.args.get('host')
     HOST_LIST.append(host)
+    return json.dumps(get_hosts())
 
 @app.route('/block')
 def block():
@@ -58,7 +59,7 @@ def index():
                 resp = requests.get(url=currhost + '/stats')
                 currdata = resp.json()
                 currdata['url'] = currhost
-                currdata['url'] = 'RUNNING'
+                currdata['status'] = 'RUNNING'
                 info['hosts'].append(currdata)
             except:
                 currdata['url'] = currhost
