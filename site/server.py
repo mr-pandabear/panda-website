@@ -10,9 +10,9 @@ app = Flask(__name__)
 
 HOST_LIST = [
     'http://ec2-35-86-174-245.us-west-2.compute.amazonaws.com:3000',
-    'http://ec2-54-191-163-102.us-west-2.compute.amazonaws.com:3000,
-    'http://ec2-34-221-173-233.us-west-2.compute.amazonaws.com:3000,
-    'http://ec2-52-12-79-244.us-west-2.compute.amazonaws.com:3000
+    'http://ec2-54-191-163-102.us-west-2.compute.amazonaws.com:3000',
+    'http://ec2-34-221-173-233.us-west-2.compute.amazonaws.com:3000',
+    'http://ec2-52-12-79-244.us-west-2.compute.amazonaws.com:3000'
 ]
 
 def get_hosts():
