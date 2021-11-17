@@ -22,7 +22,9 @@ def get_hosts():
 
 @app.route('/hosts')
 def hosts():
-    return json.dumps(random.shuffle(get_hosts()))
+    curr = get_hosts()
+    random.shuffle(curr)
+    return json.dumps(curr)
 
 @app.route('/clear_hosts')
 def clear_hosts():
