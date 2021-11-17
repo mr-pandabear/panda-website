@@ -67,13 +67,11 @@ def index():
                 info['transaction_volume'] /= 10000
                 info['avg_transaction_size'] /= 10000
                 found_valid = True
-            else:
-                info['hosts'].append(currdata)
         except:
             currdata = {}
             currdata['url'] = currhost
             currdata['status'] = 'NO RESPONSE'
-            info['hosts'].append(currdata)
+        info['hosts'].append(currdata)
             continue
 
     info['num_nodes'] = len(info['hosts'])
