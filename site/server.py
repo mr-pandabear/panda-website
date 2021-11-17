@@ -58,21 +58,36 @@ def index():
     allhosts = get_hosts()
     info = { 'hosts': []}
     found_valid = False
+    if host:
+        info['curr_host'] = host
     for currhost in allhosts:
         try:
             resp = requests.get(url=currhost + '/stats')
-            currdata = resp.json()
-            currdata['url'] = currhost
-            currdata['status'] = 'RUNNING'
+            curr = resp.json()
+            if("error" in curr):
+                info['hosts'].append({'url':currhost, 'status':'ERROR'})
+                continue
             if host == currhost or host==None:
                 host = currhost
-                info = {**resp.json(), **info}
+                info = {**curr, **info}
                 info['curr_host'] = host
                 info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
                 info['transaction_volume'] /= 10000
                 info['avg_transaction_size'] /= 10000
-                info['hosts'].append({'url':currhost, 'status':'RUNNING'})
+                info['hosts'].append({
+                    'url':currhost, 
+                    'status':'RUNNING', 
+                    'current_block':info['current_block'], 
+                    'pending_transactions': info['pending_transactions']
+                })
                 found_valid = True
+            else:
+                currdata = {}
+                currdata['url'] = currhost
+                currdata['status'] = 'RUNNING'
+                currdata['current_block'] = curr['current_block']
+                currdata['pending_transactions'] = curr['pending_transactions']
+                info['hosts'].append(currdata)
         except:
             currdata = {}
             currdata['url'] = currhost
@@ -81,6 +96,7 @@ def index():
             continue
 
     info['num_nodes'] = len(info['hosts'])
+    print(info)
     if (not found_valid):
         info['transactions'] = []
     return render_template('index.html', info=info, found_valid=found_valid, hosts=info['hosts'], transactions=info['transactions'])

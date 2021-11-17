@@ -39,6 +39,7 @@
 <main>
   <div class="container">
     <h1><img src="static/logo.png" width="100"/>PandaCoin Network Status</h1>
+    {% if found_valid %}
     <div class="p-5 mb-4 bg-light rounded-3 intro">
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">{{ info['num_coins'] }} Bamboo</h1>
@@ -46,6 +47,7 @@
         <a href="https://github.com/mr-pandabear/panda-coin"><button class="btn btn-primary btn-lg" type="button">Join the Network</button></a>
       </div>
     </div>
+    {% endif %}
     <h2 class="mt-4">System Health</h2>
     <form class="card p-2 searchbox">
       Load stats from node:
@@ -72,9 +74,9 @@
       <div class="col-4 themed-grid-col">Last Block Mint Time<div><h1>{{info['last_block_time']}} sec</h1></div></div>
     </div>
     {% else %}
-    <h1>Fatal error: No live nodes could be reached</h1>
+    <h2>Stats unavailable. Node is down!</h2>
     {% endif %}
-    <h2 class="mt-4">Other Nodes</h2>
+    <h2 class="mt-4">Live Nodes</h2>
     <table>
       <tr class='header'><td>Host</td><td>Blocks</td><td>Queue Size</td><td>State</td></tr>
       {% for message in info['hosts'] %}
