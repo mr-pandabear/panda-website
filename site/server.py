@@ -8,7 +8,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-HOST_LIST = ['http://ec2-34-216-18-6.us-west-2.compute.amazonaws.com:3000']
+HOST_LIST = []
 
 def get_hosts():
     global HOST_LIST
@@ -16,6 +16,12 @@ def get_hosts():
 
 @app.route('/hosts')
 def hosts():
+    return json.dumps(get_hosts())
+
+@app.route('/clear_hosts')
+def hosts():
+    global HOST_LIST
+    HOST_LIST = []
     return json.dumps(get_hosts())
 
 @app.route('/add_host')
