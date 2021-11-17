@@ -52,6 +52,8 @@ def index():
     info['curr_host'] = host
     info['hosts'] = []
     info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
+    info['transaction_volume'] /= 10000
+    info['avg_transaction_size'] /= 10000
     allhosts = get_hosts()
     for currhost in allhosts:
         if currhost != host:
