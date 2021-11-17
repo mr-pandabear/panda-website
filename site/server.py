@@ -70,6 +70,7 @@ def index():
             else:
                 info['hosts'].append(currdata)
         except:
+            currdata = {}
             currdata['url'] = currhost
             currdata['status'] = 'NO RESPONSE'
             info['hosts'].append(currdata)
