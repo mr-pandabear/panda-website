@@ -57,8 +57,7 @@ def index():
                 resp = requests.get(url=currhost + '/stats')
                 currdata = resp.json()
                 currdata['url'] = currhost
-                currdata['status'] = 'RUNNING'
-                info['hosts'].append(currdata)
+                currdata['status'] = 'RUNNING
                 if host == None:
                     host = currhost
                     info = resp.json()
@@ -67,6 +66,9 @@ def index():
                     info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
                     info['transaction_volume'] /= 10000
                     info['avg_transaction_size'] /= 10000
+                    info['hosts']=[]
+                else:
+                    info['hosts'].append(currdata)
             except:
                 currdata['url'] = currhost
                 currdata['status'] = 'NO RESPONSE'
