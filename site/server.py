@@ -16,6 +16,8 @@ HOST_LIST = [
     'http://ec2-54-189-82-240.us-west-2.compute.amazonaws.com:3000'
 ]
 
+BMB_SCALE_FACTOR = 10000.0
+
 def get_hosts():
     global HOST_LIST
     return HOST_LIST
@@ -63,6 +65,7 @@ def wallet():
     info = resp.json()
     info['url'] = host
     info['id'] = id
+    info['balance']/=BMB_SCALE_FACTOR
     return render_template('wallet.html', info=info)
 
 
@@ -86,8 +89,8 @@ def index():
                 info = {**curr, **info}
                 info['curr_host'] = host
                 info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
-                info['transaction_volume'] /= 10000
-                info['avg_transaction_size'] /= 10000
+                info['transaction_volume'] /= BMB_SCALE_FACTOR
+                info['avg_transaction_size'] /= BMB_SCALE_FACTOR
                 info['hosts'].append({
                     'url':currhost, 
                     'status':'RUNNING', 
@@ -110,12 +113,11 @@ def index():
             continue
 
     info['num_nodes'] = len(info['hosts'])
-    print(info)
     if (not found_valid):
         info['transactions'] = []
     for i, t in enumerate(info['transactions']):
-        info['transactions'][i]['amount'] /=10000.0
-        info['transactions'][i]['fee'] /=10000.0
+        info['transactions'][i]['amount'] /= BMB_SCALE_FACTOR
+        info['transactions'][i]['fee'] /= BMB_SCALE_FACTOR
     return render_template('index.html', info=info, found_valid=found_valid, hosts=info['hosts'], transactions=info['transactions'])
 
 

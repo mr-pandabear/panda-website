@@ -38,11 +38,6 @@
 <main>
   <div class="container">
     <h1><a href="/"><img src="static/logo.png" width="100"/></a>PandaCoin Network Status</h1>
-    <h2 class="mt-4">{{info['id']}}</h2>
-    <br/>
-    <hr/>
-    <h2 class="mt-4">Balance: {{info['balance']}}</h2>
-    <hr/>
     <form class="card p-2 searchbox">
       Load stats from node:
       <div class="input-group">
@@ -53,13 +48,16 @@
     </form>
     <br/>
     <form class="card p-2 searchbox">
-      Load stats for wallet:
+      Balance for wallet:
       <div class="input-group">
         <input type="hidden" name="host" value="{{info['url']}}"/>
         <input type="text" class="form-control" name="id" placeholder="Enter Wallet Address" value="{{ info['id']}}">
         <button type="submit" class="btn btn-secondary">GO</button>
       </div>
     </form>
+    <hr/>
+    <h2 class="mt-4">Balance: {{info['balance']}}</h2>
+    <hr/>
 </main>
   </body>
 </html>
