@@ -118,6 +118,7 @@ def index():
     for i, t in enumerate(info['transactions']):
         info['transactions'][i]['amount'] /= BMB_SCALE_FACTOR
         info['transactions'][i]['fee'] /= BMB_SCALE_FACTOR
+    info['transaction_count'] = len(info['transactions'])
     return render_template('index.html', info=info, found_valid=found_valid, hosts=info['hosts'], transactions=info['transactions'])
 
 

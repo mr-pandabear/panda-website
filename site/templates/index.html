@@ -64,6 +64,11 @@
       <div class="col-4 themed-grid-col">Difficulty<div><h1>{{info['difficulty']}} bits</h1></div></div>
     </div>
     <div class="row mb-3">
+      <div class="col-4 themed-grid-col">Transaction Count<div><h1>{{info['transaction_count']}} BMB</h1></div></div>
+      <div class="col-4 themed-grid-col">Average Fee<div><h1>{{info['avg_transaction_fee']}} BMB</h1></div></div>
+      <div class="col-4 themed-grid-col">Queued Transactions<div><h1>{{info['pending_transactions']}} sec</h1></div></div>
+    </div>
+    <div class="row mb-3">
       <div class="col-4 themed-grid-col">Last Block Transaction Volume<div><h1>{{info['transaction_volume']}} BMB</h1></div></div>
       <div class="col-4 themed-grid-col">Last Block Average Transaction Size<div><h1>{{info['avg_transaction_size']}} BMB</h1></div></div>
       <div class="col-4 themed-grid-col">Last Block Mint Time<div><h1>{{info['last_block_time']}} sec</h1></div></div>
