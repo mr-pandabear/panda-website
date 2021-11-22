@@ -45,15 +45,26 @@ def block():
     id = request.args.get('id')
     if host == None:
         host = get_hosts()[0]
-    print('id', id)
     resp = requests.get(url=host+'/block/'+str(id))
     info = resp.json()
-    print(info)
     info['url'] = host
     ts = int(info['timestamp'])
     info['timestamp'] = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
     info['num_transactions'] = len(info['transactions'])
     return render_template('block.html', info=info)
+
+@app.route('/wallet')
+def wallet():
+    host = request.args.get('host')
+    id = request.args.get('id')
+    if host == None:
+        host = get_hosts()[0]
+    resp = requests.get(url=host+'/ledger/'+str(id))
+    info = resp.json()
+    info['url'] = host
+    info['id'] = id
+    return render_template('wallet.html', info=info)
+
 
 @app.route('/')
 def index():
@@ -102,6 +113,8 @@ def index():
     print(info)
     if (not found_valid):
         info['transactions'] = []
+    for i, t in enumerate(info['transactions']):
+        info['transactions'][i] /=10000.0
     return render_template('index.html', info=info, found_valid=found_valid, hosts=info['hosts'], transactions=info['transactions'])
 
 
