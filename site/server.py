@@ -76,7 +76,7 @@ def index():
         info['curr_host'] = host
     for currhost in allhosts:
         try:
-            resp = requests.get(url=currhost + '/stats')
+            resp = requests.get(url=currhost + '/stats', timeout=2)
             curr = resp.json()
             if("error" in curr):
                 info['hosts'].append({'url':currhost, 'status':'ERROR'})
@@ -114,7 +114,8 @@ def index():
     if (not found_valid):
         info['transactions'] = []
     for i, t in enumerate(info['transactions']):
-        info['transactions'][i] /=10000.0
+        info['transactions'][i]['amount'] /=10000.0
+        info['transactions'][i]['fee'] /=10000.0
     return render_template('index.html', info=info, found_valid=found_valid, hosts=info['hosts'], transactions=info['transactions'])
 
 

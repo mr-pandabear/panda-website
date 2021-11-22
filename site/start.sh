@@ -1,2 +1,2 @@
 #!/bin/bash
-uwsgi -s /tmp/website.sock --manage-script-name --mount /website=server:app
+uwsgi -s /tmp/website.sock --manage-script-name --mount /website=server:app --enable-threads
