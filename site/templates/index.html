@@ -87,9 +87,17 @@
       {% endif %}
       {% endfor %}
     </table>
+    <form class="card p-2 searchbox">
+      Lookup balance for wallet:
+      <div class="input-group">
+        <input type="hidden" name="host" value="/wallet&host={{info['curr_host']}}"/>
+        <input type="text" class="form-control" name="id" placeholder="Enter Wallet Address" value="{{ info['id']}}">
+        <button type="submit" class="btn btn-secondary">GO</button>
+      </div>
+    </form>
     <h2 class="mt-4">Last Block Transactions</h2>
     <table>
-      <tr class='header'><td>From</td><td>To</td><td>Amount</td><td>Fee</td></tr>
+      <tr class='header'><td>From</td><td>To</td><td>Amount (Pre-Tax)</td><td>Fee</td></tr>
       {% for message in transactions %}
       <tr><td><a href="/wallet?id={{message['from']}}&host={{info['curr_host']}}">{{message['from']}}</a></td><td><a href="/wallet?id={{message['to']}}&host={{info['curr_host']}}">{{message['to']}}</a></td><td>{{message['amount']}}</td><td>{{message['fee']}}</td></tr>
       {% endfor %}

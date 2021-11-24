@@ -51,6 +51,9 @@ def block():
     info = resp.json()
     info['url'] = host
     ts = int(info['timestamp'])
+    for i, t in enumerate(info['transactions']):
+        info['transactions'][i]['amount'] /= BMB_SCALE_FACTOR
+        info['transactions'][i]['fee'] /= BMB_SCALE_FACTOR
     info['timestamp'] = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
     info['num_transactions'] = len(info['transactions'])
     return render_template('block.html', info=info)
@@ -88,6 +91,7 @@ def index():
                 host = currhost
                 info = {**curr, **info}
                 info['curr_host'] = host
+                info['num_coins'] = '{:,}'.format(info['num_coins']
                 info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
                 info['transaction_volume'] /= BMB_SCALE_FACTOR
                 info['avg_transaction_size'] /= BMB_SCALE_FACTOR
