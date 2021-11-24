@@ -69,6 +69,7 @@ def wallet():
     info['url'] = host
     info['id'] = id
     info['balance']/=BMB_SCALE_FACTOR
+    info['balance'] = '{:,}'.format(info['balance'])
     return render_template('wallet.html', info=info)
 
 
