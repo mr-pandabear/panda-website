@@ -87,14 +87,6 @@
       {% endif %}
       {% endfor %}
     </table>
-    <form class="card p-2 searchbox">
-      Lookup balance for wallet:
-      <div class="input-group">
-        <input type="hidden" name="host" value="/wallet&host={{info['curr_host']}}"/>
-        <input type="text" class="form-control" name="id" placeholder="Enter Wallet Address" value="{{ info['id']}}">
-        <button type="submit" class="btn btn-secondary">GO</button>
-      </div>
-    </form>
     <h2 class="mt-4">Last Block Transactions</h2>
     <table>
       <tr class='header'><td>From</td><td>To</td><td>Amount (Pre-Tax)</td><td>Fee</td></tr>
