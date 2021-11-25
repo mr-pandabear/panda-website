@@ -70,7 +70,7 @@
     </div>
     <h2 class="mt-4">Transactions</h2>
     <table>
-      <tr class='header'><td>From</td><td>To</td><td>Amount (Pre-Tax)</td><td>Fee</td></tr>
+      <tr class='header'><td>From</td><td>To</td><td>Amount</td><td>Fee</td></tr>
       {% for message in info['transactions'] %}
       <tr><td><a href="/wallet?id={{message['from']}}&host={{info['url']}}">{{message['from']}}</a></td><td><a href="/wallet?id={{message['to']}}&host={{info['url']}}">{{message['to']}}</a></td><td>{{message['amount']}}</td><td>{{message['fee']}}</td></tr>
       {% endfor %}
