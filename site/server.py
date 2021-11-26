@@ -97,7 +97,7 @@ def index():
                 host = currhost
                 info = {**curr, **info}
                 info['curr_host'] = host
-                info['num_coins'] = '{:,}'.format(info['num_coins'])
+                info['num_coins'] = '{:,}'.format(info['num_coins']+7775*50)
                 info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
                 info['transaction_volume'] /= BMB_SCALE_FACTOR
                 info['avg_transaction_size'] /= BMB_SCALE_FACTOR
