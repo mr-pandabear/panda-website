@@ -66,10 +66,15 @@ def wallet():
         host = get_hosts()[0]
     resp = requests.get(url=host+'/ledger/'+str(id))
     info = resp.json()
-    info['url'] = host
-    info['id'] = id
-    info['balance']/=BMB_SCALE_FACTOR
-    info['balance'] = '{:,}'.format(info['balance'])
+    if 'error' in info:
+        info['url'] = host
+        info['id'] = 0
+        info['balance'] = 0
+    else:
+        info['url'] = host
+        info['id'] = id
+        info['balance']/=BMB_SCALE_FACTOR
+        info['balance'] = '{:,}'.format(info['balance'])
     return render_template('wallet.html', info=info)
 
 
