@@ -86,6 +86,10 @@ def index():
     found_valid = False
     if host:
         info['curr_host'] = host
+    else:
+        host = 'http://ec2-54-189-82-240.us-west-2.compute.amazonaws.com:3000'
+        info['curr_host'] = host
+
     for currhost in allhosts:
         try:
             resp = requests.get(url=currhost + '/stats', timeout=2)
