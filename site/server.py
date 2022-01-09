@@ -10,7 +10,6 @@ import random
 app = Flask(__name__)
 
 HOST_LIST = [
-    'http://ec2-35-83-163-26.us-west-2.compute.amazonaws.com:3000',
     'http://ec2-35-84-249-159.us-west-2.compute.amazonaws.com:3000',
     'http://ec2-44-227-179-62.us-west-2.compute.amazonaws.com:3000',
     'http://ec2-54-189-82-240.us-west-2.compute.amazonaws.com:3000'
@@ -20,7 +19,12 @@ BMB_SCALE_FACTOR = 10000.0
 
 def get_hosts():
     global HOST_LIST
-    return HOST_LIST
+    allPeers = set()
+    for host in HOST_LIST:
+        resp = json.loads(requests.get(url=host + '/peers').text)
+        for peer in resp:
+            allPeers.append(peer)
+    return list(allPeers)
 
 @app.route('/hosts')
 def hosts():
