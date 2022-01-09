@@ -21,9 +21,12 @@ def get_hosts():
     global HOST_LIST
     allPeers = set()
     for host in HOST_LIST:
-        resp = json.loads(requests.get(url=host + '/peers').text)
-        for peer in resp:
-            allPeers.append(peer)
+        try:
+            resp = json.loads(requests.get(url=host + '/peers').text)
+            for peer in resp:
+                allPeers.append(peer)
+        except:
+            continue
     return list(allPeers)
 
 @app.route('/hosts')
@@ -31,19 +34,6 @@ def hosts():
     curr = get_hosts()
     random.shuffle(curr)
     return json.dumps(curr)
-
-@app.route('/clear_hosts')
-def clear_hosts():
-    global HOST_LIST
-    HOST_LIST = []
-    return json.dumps(get_hosts())
-
-@app.route('/add_host')
-def add_host():
-    global HOST_LIST
-    host = request.args.get('host')
-    HOST_LIST.append(host)
-    return json.dumps(get_hosts())
 
 @app.route('/block')
 def block():
