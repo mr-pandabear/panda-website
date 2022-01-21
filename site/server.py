@@ -96,6 +96,8 @@ def index():
             if host == currhost or host==None:
                 host = currhost
                 info = {**curr, **info}
+                if not 'node_version' in info:
+                    info['node_version'] = 'unknown'
                 info['curr_host'] = host
                 info['num_coins'] = '{:,}'.format(info['num_coins']+ 7775*50 + 6259000)
                 info['transactions_per_second'] = '%.2f' % (info['transactions_per_second'])
@@ -105,7 +107,8 @@ def index():
                     'url':currhost, 
                     'status':'RUNNING', 
                     'current_block':info['current_block'], 
-                    'pending_transactions': info['pending_transactions']
+                    'pending_transactions': info['pending_transactions'],
+                    'node_version': info['node_version']
                 })
                 found_valid = True
             else:
@@ -114,6 +117,10 @@ def index():
                 currdata['status'] = 'RUNNING'
                 currdata['current_block'] = curr['current_block']
                 currdata['pending_transactions'] = curr['pending_transactions']
+                if 'node_version' in curr:
+                    currdata['node_version'] = curr['node_version']
+                else:
+                    currdata['node_version'] = 'unknown'
                 info['hosts'].append(currdata)
         except:
             currdata = {}
