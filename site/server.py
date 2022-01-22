@@ -22,7 +22,7 @@ def get_hosts():
     allPeers = set()
     for host in HOST_LIST:
         try:
-            d = requests.get(url=host + '/peers').text
+            d = requests.get(url=host + '/peers', timeout=2).text
             resp = json.loads(d)
             print("GOT", resp, "FROM", host)
             for peer in resp:
